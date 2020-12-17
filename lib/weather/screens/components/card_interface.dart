@@ -13,7 +13,7 @@ abstract class ICard extends StatelessWidget {
   Widget build(BuildContext context);
 }
 
-Widget infoBox(String text, [Icon icon]) => Container(
+Widget infoBox(String text, [Widget icon]) => Container(
       margin: EdgeInsets.only(left: 5, top: 1, bottom: 1),
       padding: EdgeInsets.symmetric(horizontal: 2),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: gCyanTheme.focusColor),

@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
 abstract class IWeather {
+  final int dateTimeUtc;
   final String dateTime;
   final double temperatureMax;
   final double temperatureMin;
@@ -14,6 +15,7 @@ abstract class IWeather {
   final String humidity;
   final String clouds;
   IWeather({
+    this.dateTimeUtc,
     this.dateTime,
     this.temperatureMax,
     this.temperatureMin,
@@ -30,6 +32,7 @@ abstract class IWeather {
 }
 
 class WeatherForDay implements IWeather {
+  final int dateTimeUtc;
   final String dateTime;
   final double temperatureMax;
   final double temperatureMin;
@@ -44,6 +47,7 @@ class WeatherForDay implements IWeather {
   final String clouds;
 
   const WeatherForDay({
+    this.dateTimeUtc,
     this.dateTime,
     this.temperatureMax,
     this.temperatureMin,
@@ -59,7 +63,8 @@ class WeatherForDay implements IWeather {
   });
 
   WeatherForDay.fromJson(Map<String, dynamic> json, String locationName)
-      : dateTime = _getTimeDay(json['dt'].toString().toInt),
+      : dateTimeUtc = json['dt'].toString().toInt,
+        dateTime = _getTimeDay(json['dt'].toString().toInt),
         temperatureMax = json['temp']['max'].toString().toDou,
         temperatureMin = json['temp']['min'].toString().toDou,
         locationName = locationName,
@@ -74,6 +79,7 @@ class WeatherForDay implements IWeather {
 }
 
 class WeatherForHour implements IWeather {
+  final int dateTimeUtc;
   final String dateTime;
   final double temperatureMax;
   final double temperatureMin;
@@ -88,6 +94,7 @@ class WeatherForHour implements IWeather {
   final String clouds;
 
   const WeatherForHour({
+    this.dateTimeUtc,
     this.dateTime,
     this.temperatureMax,
     this.temperatureMin,
@@ -103,7 +110,8 @@ class WeatherForHour implements IWeather {
   });
 
   WeatherForHour.fromJson(Map<String, dynamic> json, String locationName)
-      : dateTime = _getTimeHour(json['dt'].toString().toInt),
+      : dateTimeUtc = json['dt'].toString().toInt,
+        dateTime = _getTimeHour(json['dt'].toString().toInt),
         temperatureMax = json['temp'].toString().toDou,
         temperatureMin = json['temp'].toString().toDou,
         locationName = locationName,

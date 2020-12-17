@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:test_pro_area/weather/settings/setting.dart';
 
 import 'components/card_weather_day.dart';
@@ -51,44 +52,41 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       color: gCyanTheme.accentColor,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
-      height: 100,
-      child: Column(
+      height: 90,
+      child: cupertino.Stack(
+        alignment: Alignment(-1, 0),
         children: [
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(top: 5),
-              alignment: Alignment(0, 0),
-              width: double.maxFinite,
-              height: double.maxFinite,
-              decoration: BoxDecoration(
-                color: gCyanTheme.cardColor,
-                border: Border.all(width: 2),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Weather for: ${widget.collectionWeather.listWeatherDay.first.locationName}.',
-                    style: gTextStyleLocation,
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    child: Icon(Icons.where_to_vote_outlined),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          width: 1,
-                          color: gCyanTheme.accentColor,
-                        )),
-                  ),
-                ],
-              ),
+          Container(
+            padding: EdgeInsets.only(left: 50),
+            alignment: Alignment(0, 0),
+            width: double.maxFinite,
+            height: double.maxFinite,
+            decoration: BoxDecoration(
+              color: gCyanTheme.cardColor,
+              border: Border.all(width: 2),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Weather for: ${widget.collectionWeather.listWeatherDay.first.locationName}.',
+                  style: gTextStyleLocation,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  child: Icon(Icons.where_to_vote_outlined),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        width: 1,
+                        color: gCyanTheme.accentColor,
+                      )),
+                ),
+              ],
             ),
           ),
-          Expanded(
-            child: _coiseButton(),
-          ),
+          _coiseButton(),
         ],
       ),
     );
@@ -107,22 +105,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _coiseButton() {
     return Container(
-      width: double.maxFinite,
-      decoration: BoxDecoration(
-        color: gCyanTheme.cardColor,
-        border: Border.all(width: 2),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: DropdownButton<String>(
-        hint: Text('Select table type (Day/Hour)'),
-        value: currentChoise,
-        onChanged: (String newValue) {
+      alignment: Alignment(-1, 0),
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: cupertino.CupertinoPicker(
+        itemExtent: 35,
+        onSelectedItemChanged: (int ind) {
           setState(() {
-            currentChoise = newValue;
+            currentChoise = _choise[ind % _choise.length];
           });
         },
-        items: _choise.map((location) {
+        children: _choise.map((location) {
           return DropdownMenuItem(
             child: new Text(location),
             value: location,

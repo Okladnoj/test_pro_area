@@ -23,7 +23,7 @@ class CustomColors {
 }
 
 const gTextStyleLocation = TextStyle(
-  fontSize: 20,
+  fontSize: 18,
   fontWeight: FontWeight.w700,
 );
 
@@ -37,3 +37,4 @@ TextStyle kTextStyleControllButton() => TextStyle(
     );
 
 const kSizeIconSmall = 18.0;
+const kSizeIconLage = 20.0;

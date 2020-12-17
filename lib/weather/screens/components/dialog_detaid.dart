@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_pro_area/weather/cubit/models/model_weather.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 import '../../weather.dart';
 import 'card_interface.dart';
@@ -35,63 +36,66 @@ Future<void> showArlet({
                 height: 20,
               ),
               infoBox(
-                  'Date - Time: ${weather.dateTime}',
-                  Icon(
-                    Icons.access_time_outlined,
-                    size: kSizeIconSmall,
-                  )),
+                'Date - Time: ${weather.dateTime}',
+                BoxedIcon(
+                  TimeIcon.fromDate(DateTime.utc(weather.dateTimeUtc * 1000)),
+                  size: kSizeIconLage,
+                ),
+              ),
               infoBox(
-                  'Direction wind: ${weather.deg}°',
-                  Icon(
-                    Icons.threesixty_outlined,
-                    size: kSizeIconSmall,
-                  )),
+                'Direction wind: ${weather.deg}°',
+                WindIcon(
+                  degree: weather.deg,
+                  size: kSizeIconLage,
+                ),
+              ),
               infoBox(
-                  'Wind speed: ${weather.speed} m/s',
-                  Icon(
-                    Icons.speed_outlined,
-                    size: kSizeIconSmall,
-                  )),
+                'Wind speed: ${weather.speed} m/s',
+                BoxedIcon(
+                  WeatherIcons.fromString('wi-wind-beaufort-${weather.speed.round()}'),
+                  size: kSizeIconLage,
+                ),
+              ),
               infoBox(
                 '''Temp: ${(weather.temperatureMin - 273.15).round()}°''',
-                Icon(
-                  Icons.ac_unit_outlined,
-                  size: kSizeIconSmall,
+                BoxedIcon(
+                  WeatherIcons.thermometer_internal,
+                  size: kSizeIconLage,
                 ),
               ),
               infoBox(
                 'Feel Temperature: ${weather.feelsLike}°',
-                Icon(
-                  Icons.ac_unit_outlined,
-                  size: kSizeIconSmall,
+                BoxedIcon(
+                  WeatherIcons.thermometer,
+                  size: kSizeIconLage,
                 ),
               ),
               infoBox(
                 'Atmospheric pressure: ${weather.pressure} hPa',
-                Icon(
-                  Icons.description_outlined,
-                  size: kSizeIconSmall,
+                BoxedIcon(
+                  WeatherIcons.barometer,
+                  size: kSizeIconLage,
                 ),
               ),
               infoBox(
                 'Humidity: ${weather.humidity}%',
-                Icon(
-                  Icons.description_outlined,
-                  size: kSizeIconSmall,
+                BoxedIcon(
+                  WeatherIcons.humidity,
+                  size: kSizeIconLage,
                 ),
               ),
               infoBox(
                 'Cloudiness: ${weather.clouds}%',
-                Icon(
-                  Icons.description_outlined,
-                  size: kSizeIconSmall,
+                BoxedIcon(
+                  WeatherIcons.cloudy,
+                  size: kSizeIconLage,
                 ),
               ),
               infoBox(
                 '${weather.description}',
                 Icon(
                   Icons.description_outlined,
-                  size: kSizeIconSmall,
+                  size: kSizeIconLage,
                 ),
               ),
             ],
