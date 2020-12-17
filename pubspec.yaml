@@ -1,9 +1,9 @@
 name: test_pro_area
-description: New Flutter project.
+description: The app shows the weather.
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0+10
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -13,15 +13,21 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.1
   flutter_bloc: ^6.1.1
-  flutter_native_splash: ^0.1.9
+  geolocator: ^6.1.13
+  http: ^0.12.2
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^0.1.9
   flutter_launcher_icons: ^0.8.1
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/splash/splash.png
+    - assets/icon/icon.png
 
 # flutter pub pub run flutter_native_splash:create
 flutter_native_splash:
