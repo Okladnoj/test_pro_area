@@ -21,10 +21,9 @@ class CarrentWeather implements ICarrentWeather {
     @required double lat,
     @required double lon,
     int cnt = 1,
-  })  : _lat = lat ?? 0.0,
-        _lon = lon ?? 0.0,
+  })  : _lat = lat ?? 50.4333,
+        _lon = lon ?? 30.5167,
         _cnt = cnt;
-
   @override
   Future<ICollectionWeather> getCollectionWeather() async {
     final _collectionWeather = CollectionWeather();

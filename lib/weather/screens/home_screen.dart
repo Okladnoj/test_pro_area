@@ -19,9 +19,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<Widget> _listCardWeatherDay;
   List<Widget> _listCardWeatherHour;
-  List<String> _choise = ['Day', 'Hour'];
-  String currentChoise = 'Day';
-  bool get _isDay => currentChoise == 'Day';
+  List<String> _choise = ['Weather for 8 days', 'Weather for 48 hours (2 days)'];
+  String currentChoise = 'Weather for 8 days';
+  bool get _isDay => currentChoise == 'Weather for 8 days';
   @override
   void initState() {
     _listCardWeatherDay = [];
@@ -53,38 +53,48 @@ class _HomeScreenState extends State<HomeScreen> {
       color: gCyanTheme.accentColor,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
       height: 90,
-      child: cupertino.Stack(
-        alignment: Alignment(-1, 0),
+      child: Container(
+        alignment: Alignment(0, 0),
+        width: double.maxFinite,
+        height: double.maxFinite,
+        decoration: BoxDecoration(
+          color: gCyanTheme.cardColor,
+          border: Border.all(width: 2),
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Weather for: ${widget.collectionWeather.listWeatherDay.first.locationName}.',
+              style: gTextStyleLocation,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 5),
+              child: Icon(Icons.where_to_vote_outlined),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    width: 1,
+                    color: gCyanTheme.accentColor,
+                  )),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _weatherList(List<Widget> listCardWeather) {
+    return Expanded(
+      child: Stack(
+        alignment: Alignment(0, 1),
         children: [
-          Container(
-            padding: EdgeInsets.only(left: 50),
-            alignment: Alignment(0, 0),
-            width: double.maxFinite,
-            height: double.maxFinite,
-            decoration: BoxDecoration(
-              color: gCyanTheme.cardColor,
-              border: Border.all(width: 2),
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Weather for: ${widget.collectionWeather.listWeatherDay.first.locationName}.',
-                  style: gTextStyleLocation,
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 5),
-                  child: Icon(Icons.where_to_vote_outlined),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        width: 1,
-                        color: gCyanTheme.accentColor,
-                      )),
-                ),
-              ],
-            ),
+          ListView.builder(
+            itemCount: listCardWeather.length,
+            itemBuilder: (BuildContext context, int index) {
+              return listCardWeather[index];
+            },
           ),
           _coiseButton(),
         ],
@@ -92,23 +102,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Expanded _weatherList(List<Widget> listCardWeather) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: listCardWeather.length,
-        itemBuilder: (BuildContext context, int index) {
-          return listCardWeather[index];
-        },
-      ),
-    );
-  }
-
   Widget _coiseButton() {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      height: 80,
       alignment: Alignment(-1, 0),
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 0),
+      decoration: BoxDecoration(
+        color: Color(0x98495F5E),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(width: 0.5),
+      ),
       child: cupertino.CupertinoPicker(
-        itemExtent: 35,
+        offAxisFraction: -0.5,
+        itemExtent: 40,
         onSelectedItemChanged: (int ind) {
           setState(() {
             currentChoise = _choise[ind % _choise.length];
@@ -116,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         children: _choise.map((location) {
           return DropdownMenuItem(
-            child: new Text(location),
+            child: Center(child: new Text(location)),
             value: location,
           );
         }).toList(),
